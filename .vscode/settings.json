@@ -1,0 +1,15 @@
+{
+    "python.venvPath": "C:\\Users\\Julien\\Dev\\venvs\\notesapp",
+    "python.pythonPath": "C:\\Users\\Julien\\Dev\\venvs\\notesapp\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "autopep8",
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/*.pyc": {
+            "when": "$(basename).py"
+        },
+        "**/__pycache__": true,
+    },
+    "python.terminal.activateEnvironment": true
+}
