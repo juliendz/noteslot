@@ -53,12 +53,12 @@ class Ui_MainWindow(object):
         self.splitter = QSplitter(self.frame_2)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
-        self.listView = QListView(self.splitter)
-        self.listView.setObjectName(u"listView")
-        self.splitter.addWidget(self.listView)
-        self.tableView = QTableView(self.splitter)
-        self.tableView.setObjectName(u"tableView")
-        self.splitter.addWidget(self.tableView)
+        self.listView_notebooks = QListView(self.splitter)
+        self.listView_notebooks.setObjectName(u"listView_notebooks")
+        self.splitter.addWidget(self.listView_notebooks)
+        self.tableView_notes = QTableView(self.splitter)
+        self.tableView_notes.setObjectName(u"tableView_notes")
+        self.splitter.addWidget(self.tableView_notes)
 
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
 

@@ -12,27 +12,20 @@ from PySide2 import QtCore
 from notesapp.db import dbmgr
 from packaging.version import Version
 from notesapp.upgrade import upgrade_from_previous_versions
-from notesapp.constants import USER_APPDATA_DIR, APP_NAME, DB_SETTINGS, DB_META, APP_VERSION
+from notesapp.constants import USER_APPDATA_DIR, APP_NAME, DB_NAME, APP_VERSION
 
 SETTINGS = {}
 
 
-def get_settings_db_path():
-    settings_db_file = QtCore.QFileInfo(
-        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_SETTINGS))
-    return settings_db_file.absoluteFilePath()
-
-
-def get_meta_db_path():
-    meta_db_file = QtCore.QFileInfo(
-        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_META))
-    return meta_db_file.absoluteFilePath()
-
+def get_db_path():
+    db_file = QtCore.QFileInfo(
+        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_NAME))
+    return db_file.absoluteFilePath()
 
 def load_settings():
-    settings_db_file = QtCore.QFileInfo(
-        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_SETTINGS))
-    db = dbmgr(settings_db_file.absoluteFilePath())
+    db_file = QtCore.QFileInfo(
+        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_NAME))
+    db = dbmgr(db_file.absoluteFilePath())
     db.connect()
     query = 'SELECT * FROM settings'
     dr = db.run_select_query(query)
