@@ -22,62 +22,35 @@ class dbmgr(object):
     conn = None
     is_open = False
 
-    schema_settings = """
+    schema = """
         PRAGMA journal_mode=WAL;
-        CREATE TABLE IF NOT EXISTS "dir" (
+        CREATE TABLE IF NOT EXISTS `notebooks` (
                     "id" INTEGER PRIMARY KEY ,
-                    "abspath" TEXT NOT NULL  DEFAULT (null) ,
-                    "name" TEXT NOT NULL ,
-                    "image_count" INTEGER DEFAULT (0)
+                    "title" TEXT NOT NULL  DEFAULT (null)
         );
-        CREATE TABLE `settings` ( 
+        CREATE TABLE IF NOT EXISTS `notes` (
+                    "id" INTEGER PRIMARY KEY ,
+                    "parent_id" INTEGER NOT NULL,
+                    "title" TEXT NOT NULL  DEFAULT (null) ,
+        FOREIGN KEY(`parent_id`) REFERENCES `notebooks`(`id`) ON DELETE CASCADE 
+        );
+        CREATE TABLE IF NOT EXISTS `settings` ( 
                     `key` TEXT UNIQUE,
                     `value` TEXT 
         );
-    """
-
-    schema_meta = """
-        PRAGMA journal_mode=WAL;
-        CREATE TABLE IF NOT EXISTS "scan_dir" (
-        `id`    INTEGER NOT NULL,
-        `parent_dir_id` INTEGER,
-        `abspath`       TEXT NOT NULL DEFAULT (null),
-        `name`  TEXT NOT NULL,
-        `img_count`     INTEGER,
-        `mtime` INTEGER,
-        `integrity_check`       INTEGER,
-        PRIMARY KEY(`id`)
-        );
-        CREATE TABLE IF NOT EXISTS "scan_img" (
-        `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
-        `abspath` TEXT NOT NULL UNIQUE, 
-        `name` TEXT NOT NULL, 
-        `thumb` BLOB NOT NULL, 
-        `sdid` INTEGER NOT NULL DEFAULT 0, 
-        `mtime` INTEGER, 
-        `integrity_check` INTEGER, 
-        `serial` INTEGER, 
-        FOREIGN KEY(`sdid`) REFERENCES `scan_dir`(`id`) ON DELETE CASCADE )
+        INSERT INTO notebooks (id, title) VALUES(0, "All Notes");
     """
 
     def __init__(self, db_path):
         self.dbpath = db_path
 
-    def create_settings_db_from_schema(self):
+    def create_db_from_schema(self):
         try:
             self.connect()
-            self.conn.cursor().executescript(self.schema_settings)
+            self.conn.cursor().executescript(self.schema)
             self.disconnect()
         except sqlite3.OperationalError as msg:
-            LOGGER.critical('[Error while creating settings db]: %s' % msg)
-
-    def create_meta_db_from_schema(self):
-        try:
-            self.connect()
-            self.conn.cursor().executescript(self.schema_meta)
-            self.disconnect()
-        except sqlite3.OperationalError as msg:
-            LOGGER.critical('[Error while creating meta db ]: %s' % msg)
+            LOGGER.critical('[Error while creating database]: %s' % msg)
 
     def connect(self):
         if not self.is_open:

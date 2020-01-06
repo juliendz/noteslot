@@ -8,7 +8,7 @@ from notesapp.init import init_app_data_dir, init_app_db
 def run(argv):
 
     init_app_data_dir()
-    # init_app_db()
+    init_app_db()
 
     from notesapp.log import LOGGER
     LOGGER.info(

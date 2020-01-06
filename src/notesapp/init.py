@@ -23,23 +23,17 @@ def init_app_data_dir():
 
 
 def init_app_db():
-    from imagius.db import dbmgr
-    settings_db_file = QtCore.QFileInfo(
-        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_SETTINGS))
-    if not settings_db_file.exists():
-        db = dbmgr(settings_db_file.absoluteFilePath())
-        db.create_settings_db_from_schema()
+    from notesapp.db import dbmgr
+    db_file = QtCore.QFileInfo(
+        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_NAME))
+    if not db_file.exists():
+        db = dbmgr(db_file.absoluteFilePath())
+        db.create_db_from_schema()
 
         # Add the current version info
-        db = dbmgr(settings_db_file.absoluteFilePath())
+        db = dbmgr(db_file.absoluteFilePath())
         db.connect()
         query = 'INSERT INTO settings (key, value) VALUES (?, ?)'
         params = ('VERSION', APP_VERSION)
         db.run_insert_query(query, params)
         db.disconnect()
-
-    meta_db_file = QtCore.QFileInfo(
-        "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_META))
-    if not meta_db_file.exists():
-        db = dbmgr(meta_db_file.absoluteFilePath())
-        db.create_meta_db_from_schema()
