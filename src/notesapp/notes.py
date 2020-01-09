@@ -60,3 +60,9 @@ class Notes():
             res = self._db.run_query(query, (title, content, id))
         self._db.disconnect()
         return res
+
+    def delete(self, note_id):
+        self._db.connect()
+        query = "DELETE FROM notes WHERE id = ?"
+        res = self._db.run_query(query, (note_id,))
+        self._db.disconnect()

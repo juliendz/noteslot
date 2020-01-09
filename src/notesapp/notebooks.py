@@ -36,3 +36,16 @@ class Notebooks():
         res = self._db.run_insert_query(query, (title, ))
         self._db.disconnect()
         return res
+
+    def update(self, id, title):
+        self._db.connect()
+        query = "UPDATE notebooks SET title=? WHERE id = ?"
+        res = self._db.run_query(query, (title, id))
+        self._db.disconnect()
+        return res
+
+    def delete(self, notebook_id):
+        self._db.connect()
+        query = "DELETE FROM notebooks WHERE id = ?"
+        res = self._db.run_query(query, (notebook_id,))
+        self._db.disconnect()

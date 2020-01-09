@@ -35,10 +35,11 @@ class NotesTableView(QtWidgets.QTableView):
 
         self._nts = Notes()
 
+        self._curr_nbid = 0
+
     def get_current_selected_note_id(self):
         selected = self.selectedIndexes()
         selected_id = selected[0].data(QtCore.Qt.UserRole + 1)
-        print(selected_id)
         return selected_id
 
     @Slot(int)
@@ -48,6 +49,7 @@ class NotesTableView(QtWidgets.QTableView):
 
     @Slot(int)
     def populate(self, notebook_id=0):
+        self._curr_nbid = notebook_id
 
         self._vm.clear()
         self._root_item = self._vm.invisibleRootItem()
@@ -84,14 +86,26 @@ class NotesTableView(QtWidgets.QTableView):
             edit_action.triggered.connect(self.on_edit_note)
             ctxtmenu.addAction(edit_action)
 
+            delete_action = QAction(
+                QIcon(':/icons/resources/icons/folder.png'), "Delete Note", self)
+            delete_action.triggered.connect(self.on_delete_note)
+            ctxtmenu.addAction(delete_action)
+
             ctxtmenu.exec_(event.globalPos())
 
     @Slot()
     def on_open_note(self):
-        n_id = self.get_current_selected_note_id()
-        self.open_note.emit(n_id)
+        nid = self.get_current_selected_note_id()
+        self.open_note.emit(nid)
 
     @Slot()
     def on_edit_note(self):
         selected = self.selectedIndexes()
         self.edit(selected[0])
+
+    @Slot()
+    def on_delete_note(self):
+        selected = self.selectedIndexes()
+        nid = self.get_current_selected_note_id()
+        self._nts.delete(nid)
+        self.populate(self._curr_nbid)

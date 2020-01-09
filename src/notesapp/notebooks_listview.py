@@ -29,14 +29,18 @@ class NotebooksListView(QtWidgets.QListView):
         self._sm = QItemSelectionModel(self._vm)
         self.setSelectionModel(self._sm)
 
-        self._root_item = self._vm.invisibleRootItem()
+        self._nbs = Notebooks()
 
         self._sm.selectionChanged.connect(self.on_selection_changed)
 
+        self._vm.dataChanged.connect(self.editNotebookTitle)
+
     def populate(self):
 
-        nbs = Notebooks()
-        notebooks = nbs.get()
+        self._vm.clear()
+        self._root_item = self._vm.invisibleRootItem()
+
+        notebooks = self._nbs.get()
 
         for idx, nb in enumerate(notebooks):
             item = QStandardItem(nb['title'])
@@ -57,10 +61,23 @@ class NotebooksListView(QtWidgets.QListView):
         index = self.indexAt(event.pos())
         if index.isValid():
             ctxtmenu = QMenu(self)
+
             newnote_action = QAction(
                 QIcon(':/icons/resources/icons/folder.png'), "New Note", self)
             newnote_action.triggered.connect(self.on_new_note)
             ctxtmenu.addAction(newnote_action)
+
+            if index.row() > 0:
+                edit_action = QAction(
+                    QIcon(':/icons/resources/icons/folder.png'), "Edit Notebook", self)
+                edit_action.triggered.connect(self.on_edit_notebook)
+                ctxtmenu.addAction(edit_action)
+
+                delete_action = QAction(
+                    QIcon(':/icons/resources/icons/folder.png'), "Delete Notebook", self)
+                delete_action.triggered.connect(self.on_delete_notebook)
+                ctxtmenu.addAction(delete_action)
+
             ctxtmenu.exec_(event.globalPos())
         else:
             ctxtmenu = QMenu(self)
@@ -72,9 +89,10 @@ class NotebooksListView(QtWidgets.QListView):
 
     def get_current_selected_notebook_id(self):
         selected = self.selectedIndexes()
-        selected_id = selected[0].data(QtCore.Qt.UserRole + 1)
-        print(selected_id)
-        return selected_id
+        if len(selected) > 0:
+            selected_id = selected[0].data(QtCore.Qt.UserRole + 1)
+            return selected_id
+        return 0
 
     @Slot(object)
     def add_notebook(self):
@@ -82,11 +100,27 @@ class NotebooksListView(QtWidgets.QListView):
         item = QStandardItem(title)
         self._root_item.appendRow(item)
 
-        nbs = Notebooks()
-        nb_id = nbs.add(title)
+        nb_id = self._nbs.add(title)
 
         item.setData(nb_id, QtCore.Qt.UserRole + 1)
 
     @Slot()
     def on_new_note(self):
         self.add_new_note.emit(self.get_current_selected_notebook_id())
+
+    @Slot()
+    def on_edit_notebook(self):
+        selected = self.selectedIndexes()
+        self.edit(selected[0])
+
+    @Slot()
+    def on_delete_notebook(self):
+        selected = self.selectedIndexes()
+        nbid = self.get_current_selected_notebook_id()
+        self._nbs.delete(nbid)
+        self.populate()
+
+    @Slot(int)
+    def editNotebookTitle(self, toLeft, bottomRight):
+        nbid = toLeft.data(QtCore.Qt.UserRole + 1)
+        self._nbs.update(nbid, toLeft.data())
