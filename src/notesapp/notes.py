@@ -75,6 +75,17 @@ class Notes():
         self._db.disconnect()
         return res
 
+    def updateStatus(self, id, isPinned):
+        self._db.connect()
+        if isPinned:
+            pinned = 1
+        else:
+            pinned = 0
+        query = "UPDATE notes SET pinned=? WHERE id=?"
+        res = self._db.run_query(query, (pinned, id))
+        self._db.disconnect()
+        return res
+
     def delete(self, note_id):
         self._db.connect()
         query = "DELETE FROM notes WHERE id = ?"

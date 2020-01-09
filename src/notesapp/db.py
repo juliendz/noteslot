@@ -37,6 +37,7 @@ class dbmgr(object):
                     "height" INTEGER DEFAULT NULL ,
                     "pos_x" INTEGER DEFAULT NULL ,
                     "pos_y" INTEGER DEFAULT NULL ,
+                    "pinned" INTEGER DEFAULT 0 ,
         FOREIGN KEY(`parent_id`) REFERENCES `notebooks`(`id`) ON DELETE CASCADE 
         );
         CREATE TABLE IF NOT EXISTS `settings` ( 

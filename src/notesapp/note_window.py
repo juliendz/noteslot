@@ -5,7 +5,7 @@ author: Julien Dcruz
 
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
-from PySide2.QtCore import Signal, Slot, QSize, QPoint
+from PySide2.QtCore import Signal, Slot, QSize, QPoint, QEvent
 from PySide2.QtWidgets import QWidget, QApplication, QTableView, QFileDialog
 from notesapp.ui.ui_notewindow import Ui_NoteWindow
 from notesapp.notes import Notes
@@ -26,11 +26,15 @@ class NoteWindow(QWidget, Ui_NoteWindow):
         self.load_note(note_id)
 
         self.textEdit_note.textChanged.connect(self.text_changed)
+        self.btn_hide.clicked.connect(self.hide_note)
 
         if self._note['width'] is not None:
             self.resize(QSize(self._note['width'], self._note['height']))
         if self._note['pos_x'] is not None:
             self.move(QPoint(self._note['pos_x'], self._note['pos_y']))
+
+        print(self._note['id'])
+        self._nts.updateStatus(self._note['id'], True)
 
     def closeEvent(self, event):
         self.closed.emit(self._note['id'])
@@ -56,3 +60,7 @@ class NoteWindow(QWidget, Ui_NoteWindow):
         content = self.textEdit_note.toHtml()
         self._nts.update(self._note['id'],
                          self._note['title'], content, True)
+
+    @Slot()
+    def hide_note(self, event):
+        self.close()
