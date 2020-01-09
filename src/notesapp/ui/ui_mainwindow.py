@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(1188, 725)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -29,46 +29,41 @@ class Ui_MainWindow(object):
         self.frame.setMaximumSize(QSize(16777215, 50))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self.frame)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
-
-        self.horizontalLayout.addWidget(self.label)
-
+        self.label_searchicon = QLabel(self.frame)
+        self.label_searchicon.setObjectName(u"label_searchicon")
+        self.label_searchicon.setGeometry(QRect(10, 10, 31, 30))
+        self.label_searchicon.setMaximumSize(QSize(128, 16777215))
+        self.label_searchicon.setPixmap(QPixmap(u":/icons/resources/icons/search.png"))
+        self.label_searchicon.setScaledContents(True)
+        self.label_search = QLabel(self.frame)
+        self.label_search.setObjectName(u"label_search")
+        self.label_search.setGeometry(QRect(50, 20, 37, 16))
+        self.label_search.setTextFormat(Qt.AutoText)
         self.textEdit = QTextEdit(self.frame)
         self.textEdit.setObjectName(u"textEdit")
-
-        self.horizontalLayout.addWidget(self.textEdit)
-
+        self.textEdit.setGeometry(QRect(99, 10, 1061, 30))
 
         self.verticalLayout.addWidget(self.frame)
 
-        self.frame_2 = QFrame(self.centralwidget)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout = QGridLayout(self.frame_2)
+        self.frame_notes = QFrame(self.centralwidget)
+        self.frame_notes.setObjectName(u"frame_notes")
+        self.frame_notes.setFrameShape(QFrame.StyledPanel)
+        self.frame_notes.setFrameShadow(QFrame.Raised)
+        self.gridLayout = QGridLayout(self.frame_notes)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.splitter = QSplitter(self.frame_2)
+        self.splitter = QSplitter(self.frame_notes)
         self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
-        self.listView_notebooks = QListView(self.splitter)
-        self.listView_notebooks.setObjectName(u"listView_notebooks")
-        self.splitter.addWidget(self.listView_notebooks)
-        self.tableView_notes = QTableView(self.splitter)
-        self.tableView_notes.setObjectName(u"tableView_notes")
-        self.splitter.addWidget(self.tableView_notes)
 
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
 
 
-        self.verticalLayout.addWidget(self.frame_2)
+        self.verticalLayout.addWidget(self.frame_notes)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1188, 22))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuEdit = QMenu(self.menubar)
@@ -94,7 +89,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Search:", None))
+        self.label_searchicon.setText("")
+        self.label_search.setText(QCoreApplication.translate("MainWindow", u"Search:", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.menuTools.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
