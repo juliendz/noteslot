@@ -37,6 +37,7 @@ class NoteWindow(QWidget, Ui_NoteWindow):
         self._nts.updateStatus(self._note['id'], True)
 
     def closeEvent(self, event):
+        self._nts.updateStatus(self._note['id'], False)
         self.closed.emit(self._note['id'])
 
     def resizeEvent(self, event):
@@ -63,4 +64,5 @@ class NoteWindow(QWidget, Ui_NoteWindow):
 
     @Slot()
     def hide_note(self, event):
+        self._nts.updateStatus(self._note['id'], False)
         self.close()

@@ -8,7 +8,7 @@ Notes Table View Sub class
 """
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtCore import Signal, Slot, QItemSelectionModel
-from PySide2.QtWidgets import QMenu, QAction, QAbstractItemView
+from PySide2.QtWidgets import QMenu, QAction, QAbstractItemView, QHeaderView
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from notesapp.notes import Notes
 from notesapp import notesapp_rc
@@ -21,9 +21,13 @@ class NotesTableView(QtWidgets.QTableView):
     def __init__(self, parent=None):
         super(NotesTableView, self).__init__(parent)
 
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
         # Init the view model
-        self._vm = QStandardItemModel()
+        self._vm = QStandardItemModel(0, 2)
         self._vm.setColumnCount(2)
+        self._vm.setHeaderData(0, QtCore.Qt.Horizontal, "Note")
+        self._vm.setHeaderData(1, QtCore.Qt.Horizontal, "Last Changed")
         self.setModel(self._vm)
 
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -52,15 +56,15 @@ class NotesTableView(QtWidgets.QTableView):
     def populate(self, notebook_id=0):
         self._curr_nbid = notebook_id
 
-        self._vm.clear()
-        self._root_item = self._vm.invisibleRootItem()
+        self._vm.removeRows(0, self._vm.rowCount())
 
         notes = self._nts.get_notes(notebook_id)
 
         for idx, n in enumerate(notes):
             item = QStandardItem(n['title'])
             item.setData(n['id'], QtCore.Qt.UserRole + 1)
-            self._root_item.appendRow(item)
+            lastChangedItem = QStandardItem('test')
+            self._vm.appendRow([item, lastChangedItem])
 
     @Slot(object)
     def add_note(self, notebook_id):
