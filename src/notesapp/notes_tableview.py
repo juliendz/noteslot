@@ -26,9 +26,10 @@ class NotesTableView(QtWidgets.QTableView):
         self._vm.setColumnCount(2)
         self.setModel(self._vm)
 
-        self.setEditTriggers(QAbstractItemView.DoubleClicked)
+        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self._vm.dataChanged.connect(self.editNoteTitle)
+        self.doubleClicked.connect(self.on_double_clicked)
 
         self._sm = QItemSelectionModel(self._vm)
         self.setSelectionModel(self._sm)
@@ -109,3 +110,8 @@ class NotesTableView(QtWidgets.QTableView):
         nid = self.get_current_selected_note_id()
         self._nts.delete(nid)
         self.populate(self._curr_nbid)
+
+    @Slot()
+    def on_double_clicked(self):
+        nid = self.get_current_selected_note_id()
+        self.open_note.emit(nid)

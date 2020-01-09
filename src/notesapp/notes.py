@@ -61,6 +61,20 @@ class Notes():
         self._db.disconnect()
         return res
 
+    def updateSize(self, id, width, height):
+        self._db.connect()
+        query = "UPDATE notes SET width=?, height=? WHERE id=?"
+        res = self._db.run_query(query, (width, height, id))
+        self._db.disconnect()
+        return res
+
+    def updatePos(self, id, x, y):
+        self._db.connect()
+        query = "UPDATE notes SET pos_x=?, pos_y=? WHERE id=?"
+        res = self._db.run_query(query, (x, y, id))
+        self._db.disconnect()
+        return res
+
     def delete(self, note_id):
         self._db.connect()
         query = "DELETE FROM notes WHERE id = ?"

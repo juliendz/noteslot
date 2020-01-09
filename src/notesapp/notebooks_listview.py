@@ -7,7 +7,7 @@ __docformat__ = 'restructuredtext en'
 Notebook List View Sub class
 """
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import Signal, Slot, QItemSelectionModel
+from PySide2.QtCore import Signal, Slot, QItemSelectionModel, QSize
 from PySide2.QtWidgets import QMenu, QAction
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from notesapp.notebooks import Notebooks
@@ -124,3 +124,9 @@ class NotebooksListView(QtWidgets.QListView):
     def editNotebookTitle(self, toLeft, bottomRight):
         nbid = toLeft.data(QtCore.Qt.UserRole + 1)
         self._nbs.update(nbid, toLeft.data())
+
+    def sizeHint(self):
+        return QSize(100, 16777215)
+
+    # def minimumSizeHint(self):
+        # return QSize(20, 16777215)

@@ -33,6 +33,10 @@ class dbmgr(object):
                     "parent_id" INTEGER NOT NULL,
                     "title" TEXT NOT NULL  DEFAULT (null) ,
                     "context" TEXT DEFAULT NULL ,
+                    "width" INTEGER DEFAULT NULL ,
+                    "height" INTEGER DEFAULT NULL ,
+                    "pos_x" INTEGER DEFAULT NULL ,
+                    "pos_y" INTEGER DEFAULT NULL ,
         FOREIGN KEY(`parent_id`) REFERENCES `notebooks`(`id`) ON DELETE CASCADE 
         );
         CREATE TABLE IF NOT EXISTS `settings` ( 

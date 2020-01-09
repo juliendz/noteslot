@@ -5,7 +5,7 @@ author: Julien Dcruz
 
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
-from PySide2.QtCore import Signal, Slot
+from PySide2.QtCore import Signal, Slot, QSize, QPoint
 from PySide2.QtWidgets import QWidget, QApplication, QTableView, QFileDialog
 from notesapp.ui.ui_notewindow import Ui_NoteWindow
 from notesapp.notes import Notes
@@ -19,14 +19,29 @@ class NoteWindow(QWidget, Ui_NoteWindow):
     def __init__(self, note_id, parent=None):
         super(NoteWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowFlags(QtCore.Qt.Tool)
+
         self.textEdit_note.setAcceptRichText(True)
 
         self.load_note(note_id)
 
         self.textEdit_note.textChanged.connect(self.text_changed)
 
+        if self._note['width'] is not None:
+            self.resize(QSize(self._note['width'], self._note['height']))
+        if self._note['pos_x'] is not None:
+            self.move(QPoint(self._note['pos_x'], self._note['pos_y']))
+
     def closeEvent(self, event):
         self.closed.emit(self._note['id'])
+
+    def resizeEvent(self, event):
+        self._nts.updateSize(
+            self._note['id'], event.size().width(), event.size().height())
+
+    def moveEvent(self, event):
+        self._nts.updatePos(
+            self._note['id'], event.pos().x(), event.pos().y())
 
     def load_note(self, note_id):
         self._nts = Notes()

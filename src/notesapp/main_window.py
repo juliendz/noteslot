@@ -5,7 +5,7 @@ author: Julien Dcruz
 
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
-from PySide2.QtCore import Signal, Slot
+from PySide2.QtCore import Signal, Slot, QSize
 from PySide2.QtWidgets import QMainWindow, QApplication, QTableView, QFileDialog
 from PySide2.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from notesapp.notebooks import Notebooks
@@ -57,7 +57,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @Slot(int)
     def open_note(self, note_id):
-        nw = NoteWindow(note_id)
+        nw = NoteWindow(note_id, self)
         nw.closed.connect(self.close_note)
         self._open_notes[note_id] = nw
         nw.show()
@@ -65,3 +65,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot(int)
     def close_note(self, note_id):
         self._open_notes.pop(note_id, None)
+
+    def sizeHint(self):
+        return QSize(550, 550)
+
+    def resizeEvent(self, event):
+        print(event.size())

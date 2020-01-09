@@ -29,6 +29,6 @@ def run(argv):
     # w.setStyleSheet(qss)
 
     w.setWindowTitle('NotesApp')
-    w.showMaximized()
+    w.show()
 
     return app.exec_()
