@@ -7,7 +7,7 @@ __docformat__ = 'restructuredtext en'
 Notebook List View Sub class
 """
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import Signal, Slot
+from PySide2.QtCore import Signal, Slot, QItemSelectionModel
 from PySide2.QtWidgets import QMenu, QAction
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
 from notesapp.notebooks import Notebooks
@@ -16,6 +16,7 @@ from notesapp import notesapp_rc
 
 class NotebooksListView(QtWidgets.QListView):
 
+    load_notes = QtCore.Signal(int)
     add_new_note = QtCore.Signal(int)
 
     def __init__(self, parent=None):
@@ -25,9 +26,15 @@ class NotebooksListView(QtWidgets.QListView):
         self._vm.setColumnCount(1)
         self.setModel(self._vm)
 
+        self._sm = QItemSelectionModel(self._vm)
+        self.setSelectionModel(self._sm)
+
         self._root_item = self._vm.invisibleRootItem()
 
+        self._sm.selectionChanged.connect(self.on_selection_changed)
+
     def populate(self):
+
         nbs = Notebooks()
         notebooks = nbs.get()
 
@@ -35,6 +42,15 @@ class NotebooksListView(QtWidgets.QListView):
             item = QStandardItem(nb['title'])
             item.setData(nb['id'], QtCore.Qt.UserRole + 1)
             self._root_item.appendRow(item)
+
+    def set_selection(self):
+        self._sm.select(
+            self._vm.index(0, 0),
+            QItemSelectionModel.Select | QItemSelectionModel.Rows
+        )
+
+    def on_selection_changed(self, selected, deselected):
+        self.load_notes.emit(self.get_current_selected_notebook_id())
 
     def contextMenuEvent(self, event):
 
@@ -55,7 +71,10 @@ class NotebooksListView(QtWidgets.QListView):
             ctxtmenu.exec_(event.globalPos())
 
     def get_current_selected_notebook_id(self):
-        return 0
+        selected = self.selectedIndexes()
+        selected_id = selected[0].data(QtCore.Qt.UserRole + 1)
+        print(selected_id)
+        return selected_id
 
     @Slot(object)
     def add_notebook(self):

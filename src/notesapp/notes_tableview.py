@@ -24,9 +24,14 @@ class NotesTableView(QtWidgets.QTableView):
         self._vm.setColumnCount(2)
         self.setModel(self._vm)
 
+        # self._root_item = self._vm.invisibleRootItem()
+
+    @Slot(int)
+    def populate(self, notebook_id=0):
+
+        self._vm.clear()
         self._root_item = self._vm.invisibleRootItem()
 
-    def populate(self, notebook_id=0):
         nts = Notes()
         notes = nts.get_notes(notebook_id)
 

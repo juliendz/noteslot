@@ -24,12 +24,13 @@ class Notes():
         self._db.commit()
 
     def get_notes(self, notebook_id=0):
+        self._db.connect()
         if notebook_id == 0:
             query = "SELECT * FROM notes"
+            res = self._db.run_select_query(query)
         else:
             query = "SELECT * FROM notes WHERE parent_id = ?"
-        self._db.connect()
-        res = self._db.run_select_query(query)
+            res = self._db.run_select_query(query, (notebook_id,))
         self._db.disconnect()
         return res
 
