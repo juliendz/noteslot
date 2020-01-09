@@ -12,6 +12,7 @@ from notesapp.notebooks import Notebooks
 from notesapp.notebooks_listview import NotebooksListView
 from notesapp.notes_tableview import NotesTableView
 from notesapp.ui.ui_mainwindow import Ui_MainWindow
+from notesapp.note_window import NoteWindow
 from notesapp import notesapp_rc
 
 
@@ -30,7 +31,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.listView_notebooks.populate()
         self.listView_notebooks.set_selection()
-        # self.tableView_notes.populate()
+
+        self._open_notes = {}
 
     def init_icons(self):
         self.label_searchicon.setPixmap(
@@ -43,10 +45,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.listView_notebooks.load_notes.connect(
             self.tableView_notes.populate)
 
-    Slot()
-
-    def test(self):
-        print('sc')
+        self.tableView_notes.open_note.connect(self.open_note)
 
     def init_notebooks_listview(self):
         self.listView_notebooks = NotebooksListView(self.splitter)
@@ -55,3 +54,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def init_notes_tableview(self):
         self.tableView_notes = NotesTableView(self.splitter)
         self.splitter.addWidget(self.tableView_notes)
+
+    @Slot(int)
+    def open_note(self, note_id):
+        nw = NoteWindow(note_id)
+        nw.closed.connect(self.close_note)
+        self._open_notes[note_id] = nw
+        nw.show()
+
+    @Slot(int)
+    def close_note(self, note_id):
+        self._open_notes.pop(note_id, None)
