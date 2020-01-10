@@ -1,11 +1,11 @@
-; Imagius Inno Setup Script.
+; Noteslot Inno Setup Script.
 
-#define MyAppName "Imagius"
-#define MyAppIconName "imagius.ico"
-#define MyAppVersion "0.8.0"
+#define MyAppName "Noteslot"
+#define MyAppIconName "noteslot.ico"
+#define MyAppVersion "0.9.0"
 #define MyAppPublisher "Julien Dcruz"
 #define MyAppURL "http://www.example.com/"
-#define MyAppExeName "imagius.exe"
+#define MyAppExeName "noteslot.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -22,8 +22,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=D:\Dev\projects\imagius\LICENSE
-OutputBaseFilename=imagius_setup
+LicenseFile=C:\Users\Julien\Dev\venvs\notesapp\noteslot\LICENSE
+OutputBaseFilename=noteslot_setup
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
@@ -35,8 +35,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Dev\projects\imagius\dist\imagius\imagius.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Dev\projects\imagius\dist\imagius\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\Julien\Dev\venvs\notesapp\noteslot\dist\noteslot\noteslot.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Julien\Dev\venvs\notesapp\noteslot\dist\noteslot\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

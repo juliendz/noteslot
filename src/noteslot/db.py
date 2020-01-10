@@ -45,6 +45,7 @@ class dbmgr(object):
                     `value` TEXT 
         );
         INSERT INTO notebooks (id, title) VALUES(0, "All Notes");
+        INSERT INTO settings (key, value) VALUES(CHECK_UPDATE_URL, "https://api.github.com/repos/juliendz/noteslot/releases/latest");
     """
 
     def __init__(self, db_path):

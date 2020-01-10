@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 __license__ = 'GPL v3'
-__copyright__ = '2019, Julien Dcruz juliendcruz@gmail.com'
+__copyright__ = '2020, Julien Dcruz juliendcruz@gmail.com'
 __docformat__ = 'restructuredtext en'
 
 """
-application settings module
-author: Julien Dcruz
+Application Settings module
 """
 
 from PySide2 import QtCore
@@ -40,7 +39,7 @@ def load_settings():
     # So run any version specific upgrade code
     if Version(SETTINGS['VERSION']) < Version(APP_VERSION):
         upgrade_from_previous_versions(
-            Version(SETTINGS['VERSION']), get_meta_db_path())
+            Version(SETTINGS['VERSION']), get_db_path())
     SETTINGS['VERSION'] = APP_VERSION
 
 
@@ -59,17 +58,6 @@ def get(setting_type, default='', type='str'):
 
 def save(setting_type, value):
     SETTINGS[setting_type.name] = value
-
-
-def get_allowed_image_formats():
-    filetype_bmp = get(SettingType.FILETYPE_BMP, False, 'bool')
-    filetype_png = get(SettingType.FILETYPE_PNG, False, 'bool')
-    img_ext_filter = IMAGE_FILETYPES['jpg']
-    if filetype_bmp:
-        img_ext_filter += IMAGE_FILETYPES['bmp']
-    if filetype_png:
-        img_ext_filter += IMAGE_FILETYPES['png']
-    return img_ext_filter
 
 
 def persist_to_disk():

@@ -103,6 +103,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="action_checkupdates"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -123,6 +124,11 @@
   <action name="action_newnotebook">
    <property name="text">
     <string>New Notebook</string>
+   </property>
+  </action>
+  <action name="action_checkupdates">
+   <property name="text">
+    <string>Check for Updates</string>
    </property>
   </action>
  </widget>

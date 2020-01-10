@@ -12,6 +12,7 @@ from noteslot.notebooks import Notebooks
 from noteslot.notes import Notes
 from noteslot.notebooks_listview import NotebooksListView
 from noteslot.notes_tableview import NotesTableView
+from noteslot.update_manager import UpdateManager
 from noteslot.ui.ui_mainwindow import Ui_MainWindow
 from noteslot.note_window import NoteWindow
 from noteslot import noteslot_rc
@@ -20,6 +21,8 @@ from noteslot import noteslot_rc
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     populate_search_results = Signal(object)
+
+    _update_mgr = None
 
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -64,6 +67,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.listView_notebooks.populate_search_results)
         self.btn_clearsearch.clicked.connect(self.clear_search)
 
+        # App menu
+        self.action_checkupdates.triggered.connect(self.on_check_updates)
+
     def init_notebooks_listview(self):
         self.listView_notebooks = NotebooksListView(self.splitter)
         self.splitter.addWidget(self.listView_notebooks)
@@ -91,6 +97,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def clear_search(self):
         self.plainTextEdit_search.setPlainText("")
+
+    @Slot(bool)
+    def on_check_updates(self, checked):
+        if not self._update_mgr:
+            self._update_mgr = UpdateManager()
+        self._update_mgr.get_updates()
 
     def sizeHint(self):
         return QSize(550, 550)

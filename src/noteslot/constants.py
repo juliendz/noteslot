@@ -8,7 +8,7 @@ Static and runtime constants
 """
 
 from PySide2 import QtCore
-from enum import Enum
+from enum import Enum, auto
 from .exceptions import OsNotDetectedError
 import platform
 
@@ -21,21 +21,14 @@ USER_APPDATA_DIR = QtCore.QStandardPaths.writableLocation(
     QtCore.QStandardPaths.AppDataLocation)
 
 
-class SortMode(Enum):
-    CreationTime = 1
-    RecentChanges = 2
-    Name = 3
-    Size = 4
-
-
-class ScrollDirection(Enum):
-    Up = 1
-    Down = 2
-
-
 class OSType(Enum):
     OS_WINDOWS = 1
     OS_LINUX = 2
+
+
+class SettingType(Enum):
+    CHECK_UPDATE_ON_STARTUP = auto()
+    CHECK_UPDATE_URL = auto()
 
 
 def get_appdata_dir() -> OSType:

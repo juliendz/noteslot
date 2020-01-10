@@ -12,10 +12,10 @@ def run(argv):
 
     from noteslot.log import LOGGER
     LOGGER.info(
-        '======================================noteslot starting up=======================================')
+        '======================================Noteslot starting up=======================================')
 
-    # import imagius.settings
-    # settings.load_settings()
+    import noteslot.settings
+    settings.load_settings()
 
     from noteslot.main_window import MainWindow
 
