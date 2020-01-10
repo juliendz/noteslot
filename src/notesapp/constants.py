@@ -14,7 +14,7 @@ import platform
 
 APP_NAME = 'notesapp'
 HUMAN_APP_NAME = 'NoteApp - A sticky notes application'
-APP_VERSION = '0.0.1'
+APP_VERSION = '0.9.0'
 DB_NAME = '%s.db' % APP_NAME
 LOG_FILE = '%s.log' % APP_NAME
 USER_APPDATA_DIR = QtCore.QStandardPaths.writableLocation(
