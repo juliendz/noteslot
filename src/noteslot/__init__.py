@@ -25,12 +25,6 @@ def run(argv):
     app.setApplicationName(HUMAN_APP_NAME)
     w = MainWindow()
     w.setWindowIcon(QIcon(QPixmap(':/icons/resources/icons/noteslot.png')))
-
-    # with open('styles/Aqua.qss', 'r') as stylesheet:
-    #     qss = stylesheet.read()
-
-    # w.setStyleSheet(qss)
-
     w.setWindowTitle('noteslot')
     w.show()
 

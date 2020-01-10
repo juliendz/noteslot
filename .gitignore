@@ -47,3 +47,4 @@ build-*/*
 .vscode/*
 
 noteslot_rc.py
+/scripts/Output/noteslot_setup.exe

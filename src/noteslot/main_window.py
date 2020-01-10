@@ -6,8 +6,9 @@ author: Julien Dcruz
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Signal, Slot, QSize
-from PySide2.QtWidgets import QMainWindow, QApplication, QTableView, QFileDialog
+from PySide2.QtWidgets import QMainWindow, QApplication, QTableView, QFileDialog, QMessageBox
 from PySide2.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from noteslot.constants import APP_VERSION, AUTHORS, COPYRIGHT
 from noteslot.notebooks import Notebooks
 from noteslot.notes import Notes
 from noteslot.notebooks_listview import NotebooksListView
@@ -68,7 +69,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_clearsearch.clicked.connect(self.clear_search)
 
         # App menu
+        self.action_newnotebook.triggered.connect(
+            self.listView_notebooks.add_notebook)
+        self.action_exit.triggered.connect(self.close)
         self.action_checkupdates.triggered.connect(self.on_check_updates)
+        self.action_about.triggered.connect(self.on_about)
 
     def init_notebooks_listview(self):
         self.listView_notebooks = NotebooksListView(self.splitter)
@@ -103,6 +108,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not self._update_mgr:
             self._update_mgr = UpdateManager()
         self._update_mgr.get_updates()
+
+    @Slot(bool)
+    def on_about(self, checked):
+        aboutBox = QMessageBox()
+        aboutBox.setText("Noteslot (v%s)\nAuthor: %s\n%s" %
+                         (APP_VERSION, ','.join(AUTHORS), COPYRIGHT))
+        aboutBox.exec()
 
     def sizeHint(self):
         return QSize(550, 550)

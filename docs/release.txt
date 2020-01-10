@@ -1,2 +1,0 @@
-1. Run the pyinstaller build script from the project root
-2. Compile setup.iss from scripts directory for the setup file

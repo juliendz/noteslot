@@ -12,13 +12,16 @@ from enum import Enum, auto
 from .exceptions import OsNotDetectedError
 import platform
 
-APP_NAME = 'noteslot'
-HUMAN_APP_NAME = 'NoteApp - A sticky notes application'
 APP_VERSION = '0.9.1'
+
+APP_NAME = 'noteslot'
+HUMAN_APP_NAME = 'Noteslot - A sticky notes application'
 DB_NAME = '%s.db' % APP_NAME
 LOG_FILE = '%s.log' % APP_NAME
 USER_APPDATA_DIR = QtCore.QStandardPaths.writableLocation(
     QtCore.QStandardPaths.AppDataLocation)
+AUTHORS = ['Julien Dcruz (juliendcruz@gmail.com)']
+COPYRIGHT = "Copyright ©2020 Julien Dcruz"
 
 
 class OSType(Enum):

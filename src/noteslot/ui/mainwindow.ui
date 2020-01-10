@@ -94,24 +94,18 @@
     <addaction name="action_newnotebook"/>
     <addaction name="action_exit"/>
    </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
     <addaction name="action_checkupdates"/>
-    <addaction name="actionAbout"/>
+    <addaction name="action_about"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionAbout">
+  <action name="action_about">
    <property name="text">
     <string>About</string>
    </property>

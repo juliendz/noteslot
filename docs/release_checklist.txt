@@ -1,0 +1,4 @@
+1. Bump version number in constants.py
+2. Bump verison number in setup.iss
+3. Run the pyinstaller build script from the project root
+4. Compile setup.iss from scripts directory for the setup file
