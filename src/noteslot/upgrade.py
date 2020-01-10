@@ -15,36 +15,12 @@ def upgrade_from_previous_versions(cur_version, db_path):
     db = dbmgr(db_path)
     db.connect()
     # Upgrade code to Version(0.9.1)
-    # if cur_version < Version('0.9.1'):
-    #     LOGGER.info('Upgrading from Version:%s to Version:%s' %
-    #                 (cur_version, '0.8.1'))
+    if cur_version < Version('0.9.1'):
+        LOGGER.info('Upgrading from Version:%s to Version:%s' %
+                    (cur_version, '0.8.1'))
 
-    #     queries = [
-    #         'CREATE TEMPORARY TABLE scan_img_backup(a,b,c,d,e,f,g,h);',
-    #         """INSERT INTO scan_img_backup
-    #            SELECT id, abspath, name, thumb, sdid, mtime, integrity_check, serial FROM scan_img;
-    #         """,
-    #         'DROP TABLE scan_img;',
-    #         """CREATE TABLE IF NOT EXISTS "scan_img" (
-    #             `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    #             `abspath` TEXT NOT NULL UNIQUE,
-    #             `name` TEXT NOT NULL,
-    #             `thumb` BLOB NOT NULL,
-    #             `sdid` INTEGER NOT NULL DEFAULT 0,
-    #             `mtime` INTEGER,
-    #             `integrity_check` INTEGER,
-    #             `serial` INTEGER,
-    #             FOREIGN KEY(`sdid`) REFERENCES `scan_dir`(`id`) ON DELETE CASCADE )
-    #         """,
-    #         'INSERT INTO scan_img SELECT a,b,c,d,e,f,g,h FROM scan_img_backup;',
-    #         'DROP TABLE scan_img_backup;',
-    #     ]
-
-    #     for query in queries:
-    #         db.run_query(query)
-    #     db.commit()
-
-    #     cur_version = Version('0.8.1')
+        query = "UPDATE settings SET value=? WHERE key='VERSION'"
+        db.run_query(query, ('0.9.1',))
 
     db.disconnect()
     return
