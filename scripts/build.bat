@@ -1,7 +1,7 @@
 
-pushd src\imagius && (
+pushd src\noteslot && (
 
-    pyinstaller imagius.spec --noconfirm --workpath=../../build --distpath=../../dist
+    pyinstaller noteslot.spec --noconfirm --workpath=../../build --distpath=../../dist
     popd
-    xcopy.exe resources\images\imagius.ico dist\imagius\
+    xcopy.exe resources\icons\noteslot.ico dist\noteslot\
 )

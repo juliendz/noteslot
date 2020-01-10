@@ -10,7 +10,7 @@ Application entry
 
 
 import sys
-import notesapp
+import noteslot
 
 if __name__ == '__main__':
-    sys.exit(notesapp.run(sys.argv))
+    sys.exit(noteslot.run(sys.argv))

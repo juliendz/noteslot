@@ -10,8 +10,8 @@ from PySide2 import QtWidgets, QtCore
 from PySide2.QtCore import Signal, Slot
 from PySide2.QtWidgets import QMenu, QAction
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
-from notesapp.notes import Notes
-from notesapp import notesapp_rc
+from noteslot.notes import Notes
+from noteslot import noteslot_rc
 
 
 class NotebooksItem(QStandardItem):

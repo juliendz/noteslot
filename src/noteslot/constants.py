@@ -12,7 +12,7 @@ from enum import Enum
 from .exceptions import OsNotDetectedError
 import platform
 
-APP_NAME = 'notesapp'
+APP_NAME = 'noteslot'
 HUMAN_APP_NAME = 'NoteApp - A sticky notes application'
 APP_VERSION = '0.9.0'
 DB_NAME = '%s.db' % APP_NAME

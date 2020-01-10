@@ -6,8 +6,8 @@ __docformat__ = 'restructuredtext en'
 """
 Notebook functions 
 """
-from notesapp import settings
-from notesapp.db import dbmgr
+from noteslot import settings
+from noteslot.db import dbmgr
 
 
 class Notebooks():

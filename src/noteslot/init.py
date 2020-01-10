@@ -7,8 +7,8 @@ __docformat__ = 'restructuredtext en'
 Application Data Initialization 
 """
 from PySide2 import QtCore
-from notesapp.constants import USER_APPDATA_DIR, APP_NAME, DB_NAME, APP_VERSION
-from notesapp.exceptions import AppDataDirReadWriteFailed
+from noteslot.constants import USER_APPDATA_DIR, APP_NAME, DB_NAME, APP_VERSION
+from noteslot.exceptions import AppDataDirReadWriteFailed
 
 
 def init_app_data_dir():
@@ -23,7 +23,7 @@ def init_app_data_dir():
 
 
 def init_app_db():
-    from notesapp.db import dbmgr
+    from noteslot.db import dbmgr
     db_file = QtCore.QFileInfo(
         "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_NAME))
     if not db_file.exists():

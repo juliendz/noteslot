@@ -1,1 +1,1 @@
-pyside2-rcc -o ./../src/notesapp/notesapp_rc.py ./../src/notesapp/notesapp.qrc
+pyside2-rcc -o ./../src/noteslot/noteslot_rc.py ./../src/noteslot/noteslot.qrc

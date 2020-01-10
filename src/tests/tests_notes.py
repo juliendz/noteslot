@@ -8,7 +8,7 @@ Test modules for notes
 """
 
 import os
-from notesapp import notes
+from noteslot import notes
 
 
 def test__():

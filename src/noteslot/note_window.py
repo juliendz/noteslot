@@ -7,9 +7,9 @@ import sys
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Signal, Slot, QSize, QPoint, QEvent
 from PySide2.QtWidgets import QWidget, QApplication, QTableView, QFileDialog
-from notesapp.ui.ui_notewindow import Ui_NoteWindow
-from notesapp.notes import Notes
-from notesapp import notesapp_rc
+from noteslot.ui.ui_notewindow import Ui_NoteWindow
+from noteslot.notes import Notes
+from noteslot import noteslot_rc
 
 
 class NoteWindow(QWidget, Ui_NoteWindow):

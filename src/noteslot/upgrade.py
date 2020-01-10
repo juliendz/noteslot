@@ -5,8 +5,8 @@ Application Version Upgrade module
 author: Julien Dcruz
 """
 from packaging.version import Version
-from notesapp.log import LOGGER
-from notesapp.db import dbmgr
+from noteslot.log import LOGGER
+from noteslot.db import dbmgr
 
 
 def upgrade_from_previous_versions(cur_version, meta_db_path):

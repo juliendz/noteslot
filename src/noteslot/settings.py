@@ -9,10 +9,10 @@ author: Julien Dcruz
 """
 
 from PySide2 import QtCore
-from notesapp.db import dbmgr
+from noteslot.db import dbmgr
 from packaging.version import Version
-from notesapp.upgrade import upgrade_from_previous_versions
-from notesapp.constants import USER_APPDATA_DIR, APP_NAME, DB_NAME, APP_VERSION
+from noteslot.upgrade import upgrade_from_previous_versions
+from noteslot.constants import USER_APPDATA_DIR, APP_NAME, DB_NAME, APP_VERSION
 
 SETTINGS = {}
 
@@ -21,6 +21,7 @@ def get_db_path():
     db_file = QtCore.QFileInfo(
         "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_NAME))
     return db_file.absoluteFilePath()
+
 
 def load_settings():
     db_file = QtCore.QFileInfo(

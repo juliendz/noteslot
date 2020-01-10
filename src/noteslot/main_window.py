@@ -8,13 +8,13 @@ from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Signal, Slot, QSize
 from PySide2.QtWidgets import QMainWindow, QApplication, QTableView, QFileDialog
 from PySide2.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from notesapp.notebooks import Notebooks
-from notesapp.notes import Notes
-from notesapp.notebooks_listview import NotebooksListView
-from notesapp.notes_tableview import NotesTableView
-from notesapp.ui.ui_mainwindow import Ui_MainWindow
-from notesapp.note_window import NoteWindow
-from notesapp import notesapp_rc
+from noteslot.notebooks import Notebooks
+from noteslot.notes import Notes
+from noteslot.notebooks_listview import NotebooksListView
+from noteslot.notes_tableview import NotesTableView
+from noteslot.ui.ui_mainwindow import Ui_MainWindow
+from noteslot.note_window import NoteWindow
+from noteslot import noteslot_rc
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
