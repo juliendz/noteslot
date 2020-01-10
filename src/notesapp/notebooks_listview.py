@@ -16,7 +16,7 @@ from notesapp import notesapp_rc
 
 class NotebooksListView(QtWidgets.QListView):
 
-    load_notes = QtCore.Signal(int)
+    load_notes = QtCore.Signal(int, str)
     add_new_note = QtCore.Signal(int)
 
     def __init__(self, parent=None):
@@ -36,6 +36,22 @@ class NotebooksListView(QtWidgets.QListView):
 
         self._vm.dataChanged.connect(self.editNotebookTitle)
 
+        self._search_term = ""
+
+    def add_item(self, nb, insertFirst=False):
+        item = QStandardItem(nb['title'])
+        item.setIcon(
+            QIcon(QPixmap(':/icons/resources/icons/notebook.png')))
+        f = item.font()
+        f.setBold(True)
+        f.setPointSize(10)
+        item.setFont(f)
+        item.setData(nb['id'], QtCore.Qt.UserRole + 1)
+        if not insertFirst:
+            self._root_item.appendRow(item)
+        else:
+            self._root_item.insertRow(0, [item])
+
     def populate(self):
 
         self._vm.clear()
@@ -44,24 +60,25 @@ class NotebooksListView(QtWidgets.QListView):
         notebooks = self._nbs.get()
 
         for idx, nb in enumerate(notebooks):
-            item = QStandardItem(nb['title'])
-            item.setIcon(
-                QIcon(QPixmap(':/icons/resources/icons/notebook.png')))
-            f = item.font()
-            f.setBold(True)
-            f.setPointSize(10)
-            item.setFont(f)
-            item.setData(nb['id'], QtCore.Qt.UserRole + 1)
-            self._root_item.appendRow(item)
+            self.add_item(nb)
 
-    def set_selection(self):
-        self._sm.select(
-            self._vm.index(0, 0),
-            QItemSelectionModel.Select | QItemSelectionModel.Rows
-        )
+    def set_selection(self, index=None):
+        self.clearSelection()
+        if not index:
+            self._sm.select(
+                self._vm.index(0, 0),
+                QItemSelectionModel.Select | QItemSelectionModel.Rows
+            )
+        else:
+            self._sm.select(
+                index,
+                QItemSelectionModel.Select | QItemSelectionModel.Rows
+            )
 
     def on_selection_changed(self, selected, deselected):
-        self.load_notes.emit(self.get_current_selected_notebook_id())
+        print(self.get_current_selected_notebook_id())
+        self.load_notes.emit(
+            self.get_current_selected_notebook_id(), self._search_term)
 
     def contextMenuEvent(self, event):
 
@@ -101,15 +118,16 @@ class NotebooksListView(QtWidgets.QListView):
             return selected_id
         return 0
 
+    def get_current_selection(self):
+        return self.selectedIndexes()
+
     @Slot(object)
     def add_notebook(self):
-        title = "New Notebook"
-        item = QStandardItem(title)
-        self._root_item.appendRow(item)
-
-        nb_id = self._nbs.add(title)
-
-        item.setData(nb_id, QtCore.Qt.UserRole + 1)
+        n = {}
+        n['title'] = "New Notebook"
+        nb_id = self._nbs.add(n['title'])
+        n['id'] = nb_id
+        self.add_item(n)
 
     @Slot()
     def on_new_note(self):
@@ -131,6 +149,20 @@ class NotebooksListView(QtWidgets.QListView):
     def editNotebookTitle(self, toLeft, bottomRight):
         nbid = toLeft.data(QtCore.Qt.UserRole + 1)
         self._nbs.update(nbid, toLeft.data())
+
+    @Slot(object)
+    def populate_search_results(self, sterm):
+        self._search_term = sterm
+        if sterm != "":
+            if self._vm.index(0, 0).data(QtCore.Qt.UserRole + 1) != -1:
+                self._prev_selection = self.selectedIndexes()[0]
+                self.add_item({"title": 'Search results', "id": -1}, True)
+            self.set_selection(self._vm.indexFromItem(
+                self._root_item.child(0, 0)))
+        else:
+            if self._vm.index(0, 0).data(QtCore.Qt.UserRole + 1) == -1:
+                self._vm.removeRow(0)
+            self.set_selection(self._prev_selection)
 
     def sizeHint(self):
         return QSize(100, 350)

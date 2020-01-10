@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(550, 500)
+        MainWindow.resize(500, 500)
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
         self.action_exit = QAction(MainWindow)
@@ -35,19 +35,27 @@ class Ui_MainWindow(object):
         self.frame.setMaximumSize(QSize(16777215, 50))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.label_searchicon = QLabel(self.frame)
-        self.label_searchicon.setObjectName(u"label_searchicon")
-        self.label_searchicon.setGeometry(QRect(10, 10, 31, 30))
-        self.label_searchicon.setMaximumSize(QSize(128, 16777215))
-        self.label_searchicon.setPixmap(QPixmap(u":/icons/resources/icons/search.png"))
-        self.label_searchicon.setScaledContents(True)
+        self.horizontalLayout = QHBoxLayout(self.frame)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label_search = QLabel(self.frame)
         self.label_search.setObjectName(u"label_search")
-        self.label_search.setGeometry(QRect(50, 20, 37, 16))
         self.label_search.setTextFormat(Qt.AutoText)
-        self.textEdit = QTextEdit(self.frame)
-        self.textEdit.setObjectName(u"textEdit")
-        self.textEdit.setGeometry(QRect(99, 10, 1061, 30))
+
+        self.horizontalLayout.addWidget(self.label_search)
+
+        self.plainTextEdit_search = QPlainTextEdit(self.frame)
+        self.plainTextEdit_search.setObjectName(u"plainTextEdit_search")
+
+        self.horizontalLayout.addWidget(self.plainTextEdit_search)
+
+        self.btn_clearsearch = QPushButton(self.frame)
+        self.btn_clearsearch.setObjectName(u"btn_clearsearch")
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/clear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_clearsearch.setIcon(icon)
+
+        self.horizontalLayout.addWidget(self.btn_clearsearch)
+
 
         self.verticalLayout.addWidget(self.frame)
 
@@ -69,7 +77,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 550, 22))
+        self.menubar.setGeometry(QRect(0, 0, 500, 22))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuEdit = QMenu(self.menubar)
@@ -98,8 +106,8 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.action_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.action_newnotebook.setText(QCoreApplication.translate("MainWindow", u"New Notebook", None))
-        self.label_searchicon.setText("")
         self.label_search.setText(QCoreApplication.translate("MainWindow", u"Search:", None))
+        self.btn_clearsearch.setText("")
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))

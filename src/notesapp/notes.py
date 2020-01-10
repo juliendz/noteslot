@@ -34,6 +34,13 @@ class Notes():
         self._db.disconnect()
         return res
 
+    def get_by_title(self, title):
+        self._db.connect()
+        query = "SELECT * FROM notes WHERE title LIKE ?"
+        res = self._db.run_select_query(query, ('%'+title+'%',))
+        self._db.disconnect()
+        return res
+
     def get(self, note_id):
         self._db.connect()
         query = "SELECT * FROM notes WHERE id = ?"

@@ -51,35 +51,15 @@ class NotesTableView(QtWidgets.QTableView):
         selected_id = selected[0].data(QtCore.Qt.UserRole + 1)
         return selected_id
 
-    @Slot(int)
-    def editNoteTitle(self, toLeft, bottomRighta):
-        n_id = toLeft.data(QtCore.Qt.UserRole + 1)
-        self._nts.update(n_id, toLeft.data())
-
-    @Slot(int)
-    def populate(self, notebook_id=0):
-        self._curr_nbid = notebook_id
-
+    def clear_rows(self):
         self._vm.removeRows(0, self._vm.rowCount())
 
-        notes = self._nts.get_notes(notebook_id)
-
-        for idx, n in enumerate(notes):
-            item = QStandardItem(n['title'])
-            item.setIcon(QIcon(QPixmap(':/icons/resources/icons/note.png')))
-            item.setData(n['id'], QtCore.Qt.UserRole + 1)
-            lastChangedItem = QStandardItem('test')
-            self._vm.appendRow([item, lastChangedItem])
-
-    @Slot(object)
-    def add_note(self, notebook_id):
-        title = "New Note"
-        item = QStandardItem(title)
-        self._vm.appendRow(item)
-
-        n_id = self._nts.add(notebook_id, title)
-
-        item.setData(n_id, QtCore.Qt.UserRole + 1)
+    def add_item(self, i):
+        item = QStandardItem(i['title'])
+        item.setIcon(QIcon(QPixmap(':/icons/resources/icons/note.png')))
+        item.setData(i['id'], QtCore.Qt.UserRole + 1)
+        lastChangedItem = QStandardItem('test')
+        self._vm.appendRow([item, lastChangedItem])
 
     def contextMenuEvent(self, event):
         index = self.indexAt(event.pos())
@@ -103,6 +83,37 @@ class NotesTableView(QtWidgets.QTableView):
 
             ctxtmenu.exec_(event.globalPos())
 
+    def populate_from_list(self, notes):
+        self.clear_rows()
+        for idx, n in enumerate(notes):
+            self.add_item(n)
+
+    @Slot(int, str)
+    def populate(self, notebook_id=0, sterm=""):
+        self._curr_nbid = notebook_id
+
+        self.clear_rows()
+
+        if notebook_id == -1 and sterm != "":
+            notes = self._nts.get_by_title(sterm)
+        else:
+            notes = self._nts.get_notes(notebook_id)
+
+        self.populate_from_list(notes)
+
+    @Slot(object)
+    def add_note(self, notebook_id):
+        n = {}
+        n['title'] = "New Note"
+        n_id = self._nts.add(notebook_id, n['title'])
+        n['id'] = n_id
+        self.add_item(n)
+
+    @Slot(int)
+    def editNoteTitle(self, toLeft, bottomRighta):
+        n_id = toLeft.data(QtCore.Qt.UserRole + 1)
+        self._nts.update(n_id, toLeft.data())
+
     @Slot()
     def on_open_note(self):
         nid = self.get_current_selected_note_id()
@@ -124,3 +135,9 @@ class NotesTableView(QtWidgets.QTableView):
     def on_double_clicked(self):
         nid = self.get_current_selected_note_id()
         self.open_note.emit(nid)
+
+    @Slot(object)
+    def populate_search_results(self, sterm):
+        search_results = self._nts.get_by_title(sterm)
+        self.clear_rows()
+        self.populate_from_list(search_results)

@@ -4,5 +4,6 @@
     <file>../../resources/icons/search.png</file>
     <file>../../resources/icons/note.png</file>
     <file>../../resources/icons/notebook.png</file>
+    <file>../../resources/icons/clear.png</file>
   </qresource>
 </RCC>

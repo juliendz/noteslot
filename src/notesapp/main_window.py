@@ -19,6 +19,8 @@ from notesapp import notesapp_rc
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
+    populate_search_results = Signal(object)
+
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
@@ -44,8 +46,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.open_note(n['id'])
 
     def init_icons(self):
-        self.label_searchicon.setPixmap(
-            QPixmap(':/icons/resources/icons/search.png'))
+        pass
 
     def setup_connections(self):
         self.listView_notebooks.add_new_note.connect(
@@ -55,6 +56,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableView_notes.populate)
 
         self.tableView_notes.open_note.connect(self.open_note)
+
+        self.plainTextEdit_search.textChanged.connect(self.search_notes)
+        self.populate_search_results.connect(
+            self.listView_notebooks.populate_search_results)
+        self.btn_clearsearch.clicked.connect(self.clear_search)
 
     def init_notebooks_listview(self):
         self.listView_notebooks = NotebooksListView(self.splitter)
@@ -74,6 +80,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot(int)
     def close_note(self, note_id):
         self._open_notes.pop(note_id, None)
+
+    @Slot()
+    def search_notes(self):
+        sterm = self.plainTextEdit_search.toPlainText()
+        self.populate_search_results.emit(sterm)
+
+    @Slot()
+    def clear_search(self):
+        self.plainTextEdit_search.setPlainText("")
 
     def sizeHint(self):
         return QSize(550, 550)
