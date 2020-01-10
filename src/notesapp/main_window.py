@@ -38,6 +38,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._open_notes = {}
         self.open_pinned_notes()
 
+        # self.statusbar.showMessage("Total: 32 notes")
+
     def open_pinned_notes(self):
         nts = Notes()
         notes = nts.get_notes()
