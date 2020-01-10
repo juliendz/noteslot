@@ -77,6 +77,3 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def sizeHint(self):
         return QSize(550, 550)
-
-    def resizeEvent(self, event):
-        print(event)

@@ -7,9 +7,9 @@ __docformat__ = 'restructuredtext en'
 Notes Table View Sub class
 """
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import Signal, Slot, QItemSelectionModel
+from PySide2.QtCore import Signal, Slot, QItemSelectionModel, QSize
 from PySide2.QtWidgets import QMenu, QAction, QAbstractItemView, QHeaderView
-from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem, QPixmap
 from notesapp.notes import Notes
 from notesapp import notesapp_rc
 
@@ -21,7 +21,9 @@ class NotesTableView(QtWidgets.QTableView):
     def __init__(self, parent=None):
         super(NotesTableView, self).__init__(parent)
 
+        self.verticalHeader().hide()
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.setIconSize(QSize(28, 28))
 
         # Init the view model
         self._vm = QStandardItemModel(0, 2)
@@ -31,6 +33,8 @@ class NotesTableView(QtWidgets.QTableView):
         self.setModel(self._vm)
 
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setShowGrid(False)
 
         self._vm.dataChanged.connect(self.editNoteTitle)
         self.doubleClicked.connect(self.on_double_clicked)
@@ -62,6 +66,7 @@ class NotesTableView(QtWidgets.QTableView):
 
         for idx, n in enumerate(notes):
             item = QStandardItem(n['title'])
+            item.setIcon(QIcon(QPixmap(':/icons/resources/icons/note.png')))
             item.setData(n['id'], QtCore.Qt.UserRole + 1)
             lastChangedItem = QStandardItem('test')
             self._vm.appendRow([item, lastChangedItem])
@@ -70,9 +75,9 @@ class NotesTableView(QtWidgets.QTableView):
     def add_note(self, notebook_id):
         title = "New Note"
         item = QStandardItem(title)
-        self._root_item.appendRow(item)
+        self._vm.appendRow(item)
 
-        n_id = self._nts.add_note(notebook_id, title)
+        n_id = self._nts.add(notebook_id, title)
 
         item.setData(n_id, QtCore.Qt.UserRole + 1)
 

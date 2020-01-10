@@ -9,7 +9,7 @@ Notebook List View Sub class
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtCore import Signal, Slot, QItemSelectionModel, QSize
 from PySide2.QtWidgets import QMenu, QAction
-from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem, QPixmap
 from notesapp.notebooks import Notebooks
 from notesapp import notesapp_rc
 
@@ -21,6 +21,7 @@ class NotebooksListView(QtWidgets.QListView):
 
     def __init__(self, parent=None):
         super(NotebooksListView, self).__init__(parent)
+        self.setIconSize(QSize(28, 28))
 
         self._vm = QStandardItemModel()
         self._vm.setColumnCount(1)
@@ -44,6 +45,12 @@ class NotebooksListView(QtWidgets.QListView):
 
         for idx, nb in enumerate(notebooks):
             item = QStandardItem(nb['title'])
+            item.setIcon(
+                QIcon(QPixmap(':/icons/resources/icons/notebook.png')))
+            f = item.font()
+            f.setBold(True)
+            f.setPointSize(10)
+            item.setFont(f)
             item.setData(nb['id'], QtCore.Qt.UserRole + 1)
             self._root_item.appendRow(item)
 
@@ -126,7 +133,7 @@ class NotebooksListView(QtWidgets.QListView):
         self._nbs.update(nbid, toLeft.data())
 
     def sizeHint(self):
-        return QSize(100, 16777215)
+        return QSize(100, 350)
 
     # def minimumSizeHint(self):
         # return QSize(20, 16777215)

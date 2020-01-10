@@ -2,5 +2,7 @@
   <qresource prefix="icons">
     <file>../../resources/icons/folder.png</file>
     <file>../../resources/icons/search.png</file>
+    <file>../../resources/icons/note.png</file>
+    <file>../../resources/icons/notebook.png</file>
   </qresource>
 </RCC>

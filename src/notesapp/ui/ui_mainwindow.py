@@ -20,6 +20,12 @@ class Ui_MainWindow(object):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(550, 500)
+        self.actionAbout = QAction(MainWindow)
+        self.actionAbout.setObjectName(u"actionAbout")
+        self.action_exit = QAction(MainWindow)
+        self.action_exit.setObjectName(u"action_exit")
+        self.action_newnotebook = QAction(MainWindow)
+        self.action_newnotebook.setObjectName(u"action_newnotebook")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -68,8 +74,6 @@ class Ui_MainWindow(object):
         self.menuFile.setObjectName(u"menuFile")
         self.menuEdit = QMenu(self.menubar)
         self.menuEdit.setObjectName(u"menuEdit")
-        self.menuTools = QMenu(self.menubar)
-        self.menuTools.setObjectName(u"menuTools")
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
         MainWindow.setMenuBar(self.menubar)
@@ -79,8 +83,10 @@ class Ui_MainWindow(object):
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
-        self.menubar.addAction(self.menuTools.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
+        self.menuFile.addAction(self.action_newnotebook)
+        self.menuFile.addAction(self.action_exit)
+        self.menuHelp.addAction(self.actionAbout)
 
         self.retranslateUi(MainWindow)
 
@@ -89,11 +95,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
+        self.action_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.action_newnotebook.setText(QCoreApplication.translate("MainWindow", u"New Notebook", None))
         self.label_searchicon.setText("")
         self.label_search.setText(QCoreApplication.translate("MainWindow", u"Search:", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.menuTools.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
     # retranslateUi
 
