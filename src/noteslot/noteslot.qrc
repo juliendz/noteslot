@@ -6,5 +6,7 @@
     <file>../../resources/icons/notebook.png</file>
     <file>../../resources/icons/clear.png</file>
     <file>../../resources/icons/noteslot.png</file>
+    <file>../../resources/icons/gear.png</file>
+    <file>../../resources/icons/close.png</file>
   </qresource>
 </RCC>

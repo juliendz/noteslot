@@ -40,13 +40,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.listView_notebooks.set_selection()
 
         self._open_notes = {}
-        self.open_pinned_notes()
 
         # self.statusbar.showMessage("Total: 32 notes")
 
     def open_pinned_notes(self):
         nts = Notes()
-        notes = nts.get_notes()
+        notes = nts.get_pinned_notes()
         for idx, n in enumerate(notes):
             if n['pinned'] == 1:
                 self.open_note(n['id'])
@@ -71,7 +70,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # App menu
         self.action_newnotebook.triggered.connect(
             self.listView_notebooks.add_notebook)
-        self.action_exit.triggered.connect(self.close)
+        self.action_exit.triggered.connect(self.shutdown)
         self.action_checkupdates.triggered.connect(self.on_check_updates)
         self.action_about.triggered.connect(self.on_about)
 
@@ -87,12 +86,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def open_note(self, note_id):
         nw = NoteWindow(note_id)
         nw.closed.connect(self.close_note)
+        nw.show_main.connect(self.show_self)
         self._open_notes[note_id] = nw
         nw.show()
 
     @Slot(int)
     def close_note(self, note_id):
         self._open_notes.pop(note_id, None)
+
+    @Slot()
+    def show_self(self):
+        self.show()
 
     @Slot()
     def search_notes(self):
@@ -115,6 +119,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         aboutBox.setText("Noteslot (v%s)\nAuthor: %s\n%s" %
                          (APP_VERSION, ','.join(AUTHORS), COPYRIGHT))
         aboutBox.exec()
+
+    @Slot(bool)
+    def shutdown(self, checked):
+        for k, v in self._open_notes.items():
+            if v != 1:
+                v.close()
+                # Set a random value so that the dict size does not change mid loop
+                self._open_notes[k] = 1
+        self.close()
 
     def sizeHint(self):
         return QSize(550, 550)

@@ -37,10 +37,33 @@ class Ui_NoteWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.btn_hide = QPushButton(self.frame)
-        self.btn_hide.setObjectName(u"btn_hide")
+        self.frame_3 = QFrame(self.frame)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.btn_showmain = QPushButton(self.frame_3)
+        self.btn_showmain.setObjectName(u"btn_showmain")
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/gear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_showmain.setIcon(icon)
 
-        self.horizontalLayout.addWidget(self.btn_hide)
+        self.horizontalLayout_3.addWidget(self.btn_showmain)
+
+        self.btn_hide = QPushButton(self.frame_3)
+        self.btn_hide.setObjectName(u"btn_hide")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/resources/icons/close.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_hide.setIcon(icon1)
+
+        self.horizontalLayout_3.addWidget(self.btn_hide)
+
+
+        self.horizontalLayout.addWidget(self.frame_3)
 
 
         self.verticalLayout.addWidget(self.frame)
@@ -70,6 +93,7 @@ class Ui_NoteWindow(object):
 
     def retranslateUi(self, NoteWindow):
         NoteWindow.setWindowTitle(QCoreApplication.translate("NoteWindow", u"Form", None))
-        self.btn_hide.setText(QCoreApplication.translate("NoteWindow", u"Hide", None))
+        self.btn_showmain.setText("")
+        self.btn_hide.setText("")
     # retranslateUi
 

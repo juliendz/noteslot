@@ -70,10 +70,55 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_hide">
-        <property name="text">
-         <string>Hide</string>
+       <widget class="QFrame" name="frame_3">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btn_showmain">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../noteslot.qrc">
+             <normaloff>:/icons/resources/icons/gear.png</normaloff>:/icons/resources/icons/gear.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_hide">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../noteslot.qrc">
+             <normaloff>:/icons/resources/icons/close.png</normaloff>:/icons/resources/icons/close.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -115,6 +160,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../noteslot.qrc"/>
+ </resources>
  <connections/>
 </ui>

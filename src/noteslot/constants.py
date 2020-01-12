@@ -23,6 +23,8 @@ USER_APPDATA_DIR = QtCore.QStandardPaths.writableLocation(
 AUTHORS = ['Julien Dcruz (juliendcruz@gmail.com)']
 COPYRIGHT = "Copyright ©2020 Julien Dcruz"
 
+TIME_FORMAT = "MMMM dd yyyy, HH:mm"
+
 
 class OSType(Enum):
     OS_WINDOWS = 1

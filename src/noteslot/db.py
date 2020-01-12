@@ -38,6 +38,7 @@ class dbmgr(object):
                     "pos_x" INTEGER DEFAULT NULL ,
                     "pos_y" INTEGER DEFAULT NULL ,
                     "pinned" INTEGER DEFAULT 0 ,
+                    "mtime" TEXT,
         FOREIGN KEY(`parent_id`) REFERENCES `notebooks`(`id`) ON DELETE CASCADE 
         );
         CREATE TABLE IF NOT EXISTS `settings` ( 

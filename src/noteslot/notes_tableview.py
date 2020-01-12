@@ -7,10 +7,11 @@ __docformat__ = 'restructuredtext en'
 Notes Table View Sub class
 """
 from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import Signal, Slot, QItemSelectionModel, QSize
+from PySide2.QtCore import Signal, Slot, QItemSelectionModel, QSize, QDateTime
 from PySide2.QtWidgets import QMenu, QAction, QAbstractItemView, QHeaderView
 from PySide2.QtGui import QIcon, QStandardItemModel, QStandardItem, QPixmap
 from noteslot.notes import Notes
+from noteslot import time
 from noteslot import noteslot_rc
 
 
@@ -58,7 +59,10 @@ class NotesTableView(QtWidgets.QTableView):
         item = QStandardItem(i['title'])
         item.setIcon(QIcon(QPixmap(':/icons/resources/icons/note.png')))
         item.setData(i['id'], QtCore.Qt.UserRole + 1)
-        lastChangedItem = QStandardItem('test')
+        item.setTextAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        lastChangedItem = QStandardItem(time.get_local_fmt_ts(i['mtime']))
+        lastChangedItem.setTextAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
         self._vm.appendRow([item, lastChangedItem])
 
     def contextMenuEvent(self, event):
@@ -106,7 +110,7 @@ class NotesTableView(QtWidgets.QTableView):
         n = {}
         n['title'] = "New Note"
         n_id = self._nts.add(notebook_id, n['title'])
-        n['id'] = n_id
+        n = self._nts.get(n_id)
         self.add_item(n)
 
     @Slot(int)

@@ -8,6 +8,7 @@ Notebook functions
 """
 from noteslot import settings
 from noteslot.db import dbmgr
+from noteslot import time
 
 
 class Notes():
@@ -34,6 +35,20 @@ class Notes():
         self._db.disconnect()
         return res
 
+    def get_pinned_notes(self):
+        self._db.connect()
+        query = "SELECT * FROM notes WHERE pinned=1"
+        res = self._db.run_select_query(query)
+        self._db.disconnect()
+        return res
+
+    def get_pinned_notes_count(self):
+        self._db.connect()
+        query = "SELECT COUNT(*) as pinned_notes_count FROM notes WHERE pinned=1"
+        res = self._db.run_select_query(query)
+        self._db.disconnect()
+        return res[0]['pinned_notes_count']
+
     def get_by_title(self, title):
         self._db.connect()
         query = "SELECT * FROM notes WHERE title LIKE ?"
@@ -51,20 +66,22 @@ class Notes():
         return None
 
     def add(self, notebook_id, title):
-        query = "INSERT INTO notes (parent_id, title) VALUES (?, ?)"
+        mtime = time.get_curr_fmt_ts()
+        query = "INSERT INTO notes (parent_id, title, mtime) VALUES (?, ?, ?)"
         self._db.connect()
-        res = self._db.run_insert_query(query, (notebook_id, title))
+        res = self._db.run_insert_query(query, (notebook_id, title, mtime))
         self._db.disconnect()
         return res
 
     def update(self, id, title, content=None, updateContent=False):
         self._db.connect()
-        if not updateContent:
+        if updateContent:
+            mtime = time.get_curr_fmt_ts()
+            query = "UPDATE notes SET title=?, content=?, mtime=? WHERE id=?"
+            res = self._db.run_query(query, (title, content, mtime, id))
+        else:
             query = "UPDATE notes SET title=? WHERE id = ?"
             res = self._db.run_query(query, (title, id))
-        else:
-            query = "UPDATE notes SET title=?, content=? WHERE id=?"
-            res = self._db.run_query(query, (title, content, id))
         self._db.disconnect()
         return res
 
