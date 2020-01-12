@@ -12,4 +12,5 @@ Noteslot has no relation/affiliation to Tomboy notes at all besides being inspir
 
 ### Downloads (Latest Version: 1.0.0-beta):
 Windows 10/8/7 64-bit  [Link goes here]
+
 Linux 64-bit [Link goes here]
