@@ -36,12 +36,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setup_connections()
 
-        self.listView_notebooks.populate()
-        self.listView_notebooks.set_selection()
-
         self._open_notes = {}
 
         # self.statusbar.showMessage("Total: 32 notes")
+
+    def showEvent(self, event):
+        self.listView_notebooks.populate()
+        self.listView_notebooks.set_selection()
 
     def open_pinned_notes(self):
         nts = Notes()
