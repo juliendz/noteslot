@@ -58,12 +58,10 @@ class NoteWindow(QWidget, Ui_NoteWindow):
     @Slot()
     def text_changed(self):
         if not self._save_timer.isActive():
-            print("starting save timer")
             self._save_timer.start(5000)
 
     @Slot()
     def save_content(self):
-        print("Saving Content")
         content = self.textEdit_note.toHtml()
         self._nts.update(self._note['id'],
                          self._note['title'], content, True)

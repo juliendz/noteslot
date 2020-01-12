@@ -22,8 +22,6 @@ def get_local_fmt_ts(utc_fmt_ts):
     dt.setTimeSpec(QtCore.Qt.UTC)
     local_dt = dt.toLocalTime()
     curr_dt = QDateTime.currentDateTime()
-    print(curr_dt)
-    print(local_dt)
     if curr_dt.date() == local_dt.date():
         return "%s %s" % ("Today", local_dt.toString(TIME_FORMAT))
     return local_dt.toString(DATETIME_FORMAT)

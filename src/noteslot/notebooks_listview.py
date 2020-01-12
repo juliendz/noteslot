@@ -76,7 +76,6 @@ class NotebooksListView(QtWidgets.QListView):
             )
 
     def on_selection_changed(self, selected, deselected):
-        print(self.get_current_selected_notebook_id())
         self.load_notes.emit(
             self.get_current_selected_notebook_id(), self._search_term)
 

@@ -65,7 +65,6 @@ def persist_to_disk():
         "%s/%s/%s" % (USER_APPDATA_DIR, APP_NAME, DB_SETTINGS))
     db = dbmgr(settings_db_file.absoluteFilePath())
     db.connect()
-    print(SETTINGS)
 
     select_query = 'SELECT key FROM settings WHERE key = ?'
     update_query = 'UPDATE settings set value = ? WHERE key = ?'
