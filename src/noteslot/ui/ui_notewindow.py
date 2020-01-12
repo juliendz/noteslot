@@ -81,6 +81,10 @@ class Ui_NoteWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.textEdit_note = QTextEdit(self.frame_2)
         self.textEdit_note.setObjectName(u"textEdit_note")
+        font = QFont()
+        font.setFamily(u"Segoe UI")
+        font.setPointSize(10)
+        self.textEdit_note.setFont(font)
         self.textEdit_note.setStyleSheet(u"background-color: rgb(255, 255, 136);")
 
         self.horizontalLayout_2.addWidget(self.textEdit_note)

@@ -154,6 +154,12 @@
       </property>
       <item>
        <widget class="QTextEdit" name="textEdit_note">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 136);</string>
         </property>
