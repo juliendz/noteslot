@@ -37,9 +37,9 @@ class UpdateManager(QtCore.QObject):
         if reply.error() == QtNetwork.QNetworkReply.NoError:
             json_doc = QtCore.QJsonDocument.fromJson(reply.readAll())
             json_obj = json_doc.object()
-            latest_release = Version(json_obj['tag_name'].toString())
-            is_draft = json_obj['draft'].toBool()
-            assets = json_obj['assets'].toArray()
+            latest_release = Version(json_obj['tag_name'])
+            is_draft = json_obj['draft']
+            assets = json_obj['assets']
             asset_url = ''
             if len(assets) > 0:
                 asset = assets[0]

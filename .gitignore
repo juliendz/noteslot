@@ -48,3 +48,4 @@ build-*/*
 
 noteslot_rc.py
 /scripts/Output/noteslot_setup.exe
+/scripts/Output/*.exe
