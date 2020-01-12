@@ -20,6 +20,9 @@ class Ui_NoteWindow(object):
         if NoteWindow.objectName():
             NoteWindow.setObjectName(u"NoteWindow")
         NoteWindow.resize(400, 300)
+        icon = QIcon()
+        icon.addFile(u":/icons/resources/icons/notebook.png", QSize(), QIcon.Normal, QIcon.Off)
+        NoteWindow.setWindowIcon(icon)
         self.verticalLayout = QVBoxLayout(NoteWindow)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -48,17 +51,17 @@ class Ui_NoteWindow(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.btn_showmain = QPushButton(self.frame_3)
         self.btn_showmain.setObjectName(u"btn_showmain")
-        icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/gear.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_showmain.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/resources/icons/gear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_showmain.setIcon(icon1)
 
         self.horizontalLayout_3.addWidget(self.btn_showmain)
 
         self.btn_hide = QPushButton(self.frame_3)
         self.btn_hide.setObjectName(u"btn_hide")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/close.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_hide.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/resources/icons/close.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_hide.setIcon(icon2)
 
         self.horizontalLayout_3.addWidget(self.btn_hide)
 

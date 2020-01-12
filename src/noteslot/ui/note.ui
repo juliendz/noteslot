@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../noteslot.qrc">
+    <normaloff>:/icons/resources/icons/notebook.png</normaloff>:/icons/resources/icons/notebook.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
