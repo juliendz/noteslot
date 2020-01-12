@@ -37,19 +37,16 @@ class NoteWindow(QWidget, Ui_NoteWindow):
         if self._note['pos_x'] is not None:
             self.move(QPoint(self._note['pos_x'], self._note['pos_y']))
 
-        self._nts.updateStatus(self._note['id'], True)
+        self._nts.saveStatus(self._note['id'], True)
 
         self._save_timer = QTimer()
         self._save_timer.setSingleShot(True)
         self._save_timer.timeout.connect(self.save_content)
 
-    def resizeEvent(self, event):
-        self._nts.updateSize(
-            self._note['id'], event.size().width(), event.size().height())
-
-    def moveEvent(self, event):
-        self._nts.updatePos(
-            self._note['id'], event.pos().x(), event.pos().y())
+        self._last_w = None
+        self._last_h = None
+        self._last_x = None
+        self._last_y = None
 
     def load_note(self, note_id):
         self._nts = Notes()
@@ -73,8 +70,11 @@ class NoteWindow(QWidget, Ui_NoteWindow):
 
     @Slot()
     def hide_note(self, event):
-        self._nts.updateStatus(self._note['id'], False)
+        self._nts.saveStatus(self._note['id'], False)
         self.close()
 
     def closeEvent(self, event):
         self.save_content()
+        self._nts.saveSize(self._note['id'], self.width(), self.height())
+        self._nts.savePos(
+            self._note['id'], self.pos().x(), self.pos().y())
