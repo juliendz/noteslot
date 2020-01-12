@@ -1,4 +1,6 @@
-Noteslot - sticky notes application i Qt
+Noteslot - sticky notes application in Qt
+-----------------------------------------------
+
 ********************************
 
 ### Description:
