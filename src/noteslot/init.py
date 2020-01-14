@@ -17,8 +17,6 @@ def init_app_data_dir():
     if not dir.exists(data_dir_path):
         roaming_dir = QtCore.QDir(USER_APPDATA_DIR)
         if not roaming_dir.mkdir(APP_NAME):
-            LOGGER.critical(
-                'Unable to access or create application data location: %s' % data_dir_path)
             raise AppDataDirReadWriteFailed
 
 

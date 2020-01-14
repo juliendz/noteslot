@@ -4,7 +4,6 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtGui import QWindow, QIcon, QPixmap
 from noteslot.constants import HUMAN_APP_NAME
 from noteslot.init import init_app_data_dir, init_app_db
-from noteslot.notes import Notes
 from noteslot import noteslot_rc
 
 
@@ -28,6 +27,7 @@ def run(argv):
     w.setWindowIcon(QIcon(QPixmap(':/icons/resources/icons/noteslot.png')))
     w.setWindowTitle('noteslot')
 
+    from noteslot.notes import Notes
     nts = Notes()
     w.open_pinned_notes()
     if nts.get_pinned_notes_count() == 0:
