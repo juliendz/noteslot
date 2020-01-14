@@ -27,6 +27,7 @@ OutputBaseFilename=noteslot_setup
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64
+PrivilegesRequired=admin
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -41,6 +42,7 @@ Source: "C:\Users\Julien\Dev\venvs\notesapp\noteslot\dist\noteslot\*"; DestDir: 
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIconName}"
+Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
