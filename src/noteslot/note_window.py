@@ -69,6 +69,7 @@ class NoteWindow(QWidget, Ui_NoteWindow):
     @Slot()
     def hide_note(self, event):
         self._nts.saveStatus(self._note['id'], False)
+        self.closed.emit(self._note['id'])
         self.close()
 
     def closeEvent(self, event):
