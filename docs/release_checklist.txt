@@ -3,4 +3,5 @@
 3. Add any database or upgrade code in upgrade.py for the new version
 4. Run rc_build.bat and ui_build.bat
 5. Run the pyinstaller build script from the project root
-6. Compile setup.iss from scripts directory for the setup file
+6. Inpsect the dist directory
+7. Run 'setup.iss' from the scripts directory to generate the windows installer file
