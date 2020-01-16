@@ -10,7 +10,7 @@ It aims to provide a sticky notes application that is cross platform and extend 
 
 Noteslot has no relation/affiliation to Tomboy notes at all besides being inspired by it design wise.
 
-### Downloads (Latest Version: 1.0.0-beta):
+### Downloads (Latest Version: 1.0.0-beta.2):
 [Windows 10/8/7 64-bit](https://github.com/juliendz/noteslot/releases/download/1.0.0-beta/noteslot_setup.exe)
 
 Linux 64-bit [Coming soon]
