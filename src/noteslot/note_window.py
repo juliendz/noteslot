@@ -24,7 +24,7 @@ class NoteWindow(QWidget, Ui_NoteWindow):
         self.setWindowFlags(
             QtCore.Qt.Dialog | QtCore.Qt.CustomizeWindowHint | QtCore.Qt.WindowTitleHint)
 
-        self.textEdit_note.setAcceptRichText(True)
+        self.textEdit_note.setAcceptRichText(False)
 
         self.load_note(note_id)
 

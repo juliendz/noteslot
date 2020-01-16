@@ -5,3 +5,4 @@
 5. Run the pyinstaller build script from the project root
 6. Inpsect the dist directory
 7. Run 'setup.iss' from the scripts directory to generate the windows installer file
+8. Update website download link version number
