@@ -4,7 +4,7 @@ Noteslot - sticky notes application in Qt
 ********************************
 
 ### Description:
-Noteslot a sticky notes application for the desktop inspired by Tomboy Notes. 
+Noteslot is a sticky notes application for the desktop inspired by Tomboy Notes. 
 
 It aims to provide a sticky notes application that is cross platform and extend the feature set available in Tomboy Notes.
 
