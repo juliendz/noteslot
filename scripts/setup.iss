@@ -2,7 +2,7 @@
 
 #define MyAppName "Noteslot"
 #define MyAppIconName "noteslot.ico"
-#define MyAppVersion "1.0.0-beta.2"
+#define MyAppVersion "1.0.0-beta.3"
 #define MyAppPublisher "Julien Dcruz"
 #define MyAppURL "http://www.example.com/"
 #define MyAppExeName "noteslot.exe"

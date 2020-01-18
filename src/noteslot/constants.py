@@ -13,7 +13,7 @@ from enum import Enum, auto
 from .exceptions import OsNotDetectedError
 import platform
 
-APP_VERSION = '1.0.0-beta.2'
+APP_VERSION = '1.0.0-beta.3'
 
 APP_NAME = 'noteslot'
 HUMAN_APP_NAME = 'Noteslot - A sticky notes application'
