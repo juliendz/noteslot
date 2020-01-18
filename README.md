@@ -12,6 +12,6 @@ Upcoming features include syncing notes with popular personal cloud storage acco
 Noteslot has no relation/affiliation to Tomboy notes at all besides being inspired by it design wise.
 
 ### Downloads (Latest Version: 1.0.0-beta.2):
-[Windows 10/8/7 64-bit](https://github.com/juliendz/noteslot/releases/download/1.0.0.-beta.2/noteslot_setup.exe)
+[Windows 10/8/7 64-bit](https://github.com/juliendz/noteslot/releases/download/1.0.0-beta.3/noteslot_setup.exe)
 
 Linux 64-bit [Coming soon]
