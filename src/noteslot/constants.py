@@ -8,6 +8,7 @@ Static and runtime constants
 """
 
 from PySide2 import QtCore
+from PySide2.QtCore import QDir
 from enum import Enum, auto
 from .exceptions import OsNotDetectedError
 import platform
@@ -25,6 +26,8 @@ COPYRIGHT = "Copyright ©2020 Julien Dcruz"
 
 DATETIME_FORMAT = "MMMM dd yyyy, HH:mm"
 TIME_FORMAT = "HH:mm"
+
+LOCK_FILE = QDir.temp().absoluteFilePath("noteslot.lock")
 
 
 class OSType(Enum):
